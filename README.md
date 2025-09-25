@@ -68,7 +68,12 @@ openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
 pip install -r requirements.txt
 ```
 
-4. **Затем откройте браузер и перейдите по адресу**
+4. **Запустите приложение**
+```shell
+uvicorn src.main:app --reload
+```
+
+5. **Затем откройте браузер и перейдите по адресу**
 ```shell
 http://localhost:8000
 ```
