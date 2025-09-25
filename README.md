@@ -49,34 +49,41 @@ git clone https://github.com/lamauspex/Task_Manager
 
 
 2. **Создание токена**
-   ```shell
-  mkdir certs
-  cd certs
-  openssl genrsa -out jwt-private.pem 2048
-  openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
-  ```
+```shell
+mkdir certs
+```
+```shell
+cd certs
+```
+```shell
+openssl genrsa -out jwt-private.pem 2048
+```
+```shell
+openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
+```
+
 
 3. **Выполните установку**
-   ```shell
-   pip install -r requirements.txt
-   ```
+```shell
+pip install -r requirements.txt
+```
 
 4. **Затем откройте браузер и перейдите по адресу**
-   ```
-   http://localhost:8000
-   ```
-
+```shell
+http://localhost:8000
 ```
+
+
 
 Ваш вклад в проект приветствуется! Если вы хотите внести изменения или улучшения, создайте pull request или откройте issue на GitHub.
 
 **Контакты**
 Если у вас есть вопросы или предложения, не стесняйтесь связаться со мной:
 
-Имя: Резник Кирилл
-Email: lamauspex@yandex.ru
-GitHub: https://github.com/lamauspex
-Telegram: @lamauspex
+- Имя: Резник Кирилл
+- Email: lamauspex@yandex.ru
+- GitHub: https://github.com/lamauspex
+- Telegram: @lamauspex
 
 Спасибо за интерес к проекту! Надеюсь, он будет полезен в вашей работе.
 
