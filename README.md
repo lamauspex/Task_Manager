@@ -19,6 +19,7 @@
 - **Интеграции:** Совместимая работа с Google Calendar, Slack и Trello.
 
 
+
 ### 🟢 Технологии
 
 Проект использует следующие технологии:
@@ -34,23 +35,26 @@
 - **Data Analysis & Visualization:** Pandas, Plotly
 
 
+
 ### 🟢 Установка
 
 Просто выполните следующие шаги:
 
-1. git clone https://github.com/lamauspex/Task_Manager
-   cd task-manager
+1. - git clone https://github.com/lamauspex/Task_Manager
+   - cd task-manager
 
 
 2. Создание токена
-mkdir certs
-cd certs
-openssl genrsa -out jwt-private.pem 2048
-openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
+  - mkdir certs
+  - cd certs
+  - openssl genrsa -out jwt-private.pem 2048
+  - openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
 
 3. Выполните установку
+  - pip install -r requirements.txt
 
-4. Затем откройте браузер и перейдите по адресу http://localhost:8000/docs.
+4. Затем откройте браузер и перейдите по адресу
+  - http://localhost:8000/docs.
 
 
 
