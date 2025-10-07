@@ -16,9 +16,14 @@ class User(Base, BaseModel):
     first_name: Mapped[str] = mapped_column(String(length=30))
     last_name: Mapped[str] = mapped_column(String(length=30))
     email: Mapped[str] = mapped_column(
-        String(length=100), unique=True, index=True)
+        String(length=100),
+        unique=True,
+        index=True
+    )
     password_hash: Mapped[str] = mapped_column(
-        String(length=128), nullable=False)
+        String(length=128),
+        nullable=False
+    )
 
     role: Mapped[Role] = mapped_column(Enum(Role), default=Role.USER)
     active: Mapped[bool] = mapped_column(Boolean)

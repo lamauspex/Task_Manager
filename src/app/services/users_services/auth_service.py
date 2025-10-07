@@ -3,22 +3,30 @@
 
 
 from fastapi import HTTPException
-from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.orm import Session
+from sqlalchemy.future import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.app.models.users_models import User
 from src.app.core.security import hash_password, validate_password
-from src.app.schemas.users_schemas import UserCreate
+from src.app.schemas.users_schemas import UserCreate, AuthUserIn
 
 
 async def authenticate_user(
-    db: Session, form_data: OAuth2PasswordRequestForm
+    db: AsyncSession,
+    form_data: AuthUserIn
 ):
-    user = db.query(User).filter(User.email == form_data.username).first()
+    stmt = select(User).where(User.email == form_data.email)
+    result = await db.execute(stmt)
+    user = result.scalar_one_or_none()
+
     if not user or not validate_password(
-        form_data.password, user.password_hash
+        form_data.password,
+        user.password_hash
     ):
-        raise HTTPException(status_code=401, detail="Unauthorized")
+        raise HTTPException(
+            status_code=401,
+            detail="Unauthorized"
+        )
     return user
 
 

@@ -10,6 +10,7 @@ from src.app.interfaces.i_service import ITaskService
 from src.app.repositories.tasks_repo import TasksRepository
 from src.app.models.tasks_models import Task
 from src.app.schemas.tasks_schemas import TaskCreate, TaskOut
+from src.app.services.tasks_service.celery_tasks import send_notification_task
 
 
 class TasksService(ITaskService):
@@ -30,6 +31,15 @@ class TasksService(ITaskService):
 
         task.assigned_to_id = user_id
         await self.repository.update(task.id, {'assigned_to_id': user_id})
+
+        # Запускаем отправку уведомления через Celery
+        notification_data = {
+            "recipient": f"{user_id}@example.com",
+            "subject": "Новая задача назначена!",
+            "body": f"Вам назначена новая задача {task.title}"
+        }
+        send_notification_task.delay(*notification_data)
+
         return TaskOut.model_validate(task)
 
     async def complete_task(

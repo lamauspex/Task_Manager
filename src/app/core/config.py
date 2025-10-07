@@ -1,3 +1,4 @@
+
 """ Назначение: Настройки конфигурации """
 
 
@@ -11,36 +12,46 @@ load_dotenv(dotenv_path='.env')
 
 
 class AppSettings(BaseSettings):
+
+    # Конфигурация электронной почты
+    EMAIL_HOST: str
+    EMAIL_PORT: int
+    EMAIL_USER: str
+    EMAIL_PASSWORD: str
+
+    # Настройки базы данных
     DATABASE_URL: str
-    AUTH_JWT_PRIVATE_KEY_PATH: Path = BASE_DIR / 'certs' / 'jwt-private.pem'
-    AUTH_JWT_PUBLIC_KEY_PATH: Path = BASE_DIR / 'certs' / 'jwt-public.pem'
-    AUTH_JWT_ALGORITHM: str = 'RS256'
-    AUTH_JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
+
+    # Настройки JWT-аутентификации
+    AUTH_JWT_PRIVATE_KEY_PATH: Path
+    AUTH_JWT_PUBLIC_KEY_PATH: Path
+    AUTH_JWT_ALGORITHM: str
+    AUTH_JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int
 
     # Добавляем общие настройки приложения
-    APP_NAME: str = "Task Manager API"
-    VERSION: str = "0.1.0"
-    DOCS_URL: str = "/docs"
-    OPENAPI_URL: str = "/openapi.json"
-    ROOT_PATH: str = "/api/v1"
-    ORIGINS: list[str] = ["http://localhost:8080"]
+    APP_NAME: str
+    VERSION: str
+    DOCS_URL: str
+    OPENAPI_URL: str
+    ROOT_PATH: str
+    ORIGINS: list[str]
 
     # Допустимые домены для CORS
-    CORS_ALLOW_CREDENTIALS: bool = True
-    CORS_ALLOW_METHODS: list[str] = [""]
-    CORS_ALLOW_HEADERS: list[str] = [""]
+    CORS_ALLOW_CREDENTIALS: bool
+    CORS_ALLOW_METHODS: list[str]
+    CORS_ALLOW_HEADERS: list[str]
 
     # Дополнительные настройки для FastAPI
-    FASTAPI_TITLE: str = "Task Manager API"
-    FASTAPI_VERSION: str = "0.1.0"
-    FASTAPI_DOCS_URL: str = "/docs"
-    FASTAPI_OPENAPI_URL: str = "/openapi.json"
-    FASTAPI_ROOT_PATH: str = "/api/v1"
-    FASTAPI_SERVERS: list = []
-    FASTAPI_CONTACT_NAME: str = "Кирилл Резник"
-    FASTAPI_CONTACT_EMAIL: str = "lamauspex@yandex.ru"
-    FASTAPI_LICENSE_NAME: str = "MIT License"
-    FASTAPI_LICENSE_URL: str = "https://opensource.org/licenses/MIT"
+    FASTAPI_TITLE: str
+    FASTAPI_VERSION: str
+    FASTAPI_DOCS_URL: str
+    FASTAPI_OPENAPI_URL: str
+    FASTAPI_ROOT_PATH: str
+    FASTAPI_SERVERS: list
+    FASTAPI_CONTACT_NAME: str
+    FASTAPI_CONTACT_EMAIL: str
+    FASTAPI_LICENSE_NAME: str
+    FASTAPI_LICENSE_URL: str
 
     # Определение FASETAPI_KWARGS в AppSettings
     @property

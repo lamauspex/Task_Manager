@@ -26,5 +26,5 @@ class Token(BaseModel):
 
 class TokenPayload(BaseModel):
     sub: str
-    exp: float
-    iat: float
+    exp: int
+    iat: int

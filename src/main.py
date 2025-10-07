@@ -11,6 +11,7 @@ from src.app.core.config import app_settings
 from src.app.analytics.home import home_page
 from src.app.routers import register_routes
 from src.app.middlewares.logging import LoggingSettings
+from src.app.middlewares.auth import include_auth_middleware
 
 # Устанавливаем логирование
 logger = LoggingSettings.setup_logging()
@@ -32,6 +33,7 @@ app.get("/", response_class=HTMLResponse)(home_page)
 
 # Регистрация маршрутов
 register_routes(app)
+include_auth_middleware(app)
 
 
 @app.on_event("startup")

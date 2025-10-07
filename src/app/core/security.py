@@ -1,8 +1,8 @@
 
-""" Назначение: методы, касающиеся безопасности и хэширования паролей """
+""" Назначение: Mетоды, касающиеся безопасности и хэширования паролей """
 
 
-import jwt
+from jose import jwt
 import bcrypt
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
@@ -34,13 +34,12 @@ def validate_password(password: str, hashed_password: bytes) -> bool:
 
 def encode_jwt(payload: dict) -> str:
     """
-    Кодирует JSON Web Token с заданной нагрузкой и секретным ключом.
-    Параметры:
+    Кодирует JSON Web Token с заданной нагрузкой и секретным ключом
     - payload: словарь с информацией, которую хотим сохранить в токене
     - private_key: строка с приватным RSA-кодом
     Возвращает закодированную строку токена.
     """
-    current_time = datetime.utcnow()
+    current_time = datetime.now()
     expire_time = current_time + \
         timedelta(minutes=app_settings.AUTH_JWT_ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode = payload.copy()

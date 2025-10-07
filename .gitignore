@@ -2,3 +2,6 @@ certs/
 __pycache__/
 .vscode/
 venv/
+credentials.json
+
+

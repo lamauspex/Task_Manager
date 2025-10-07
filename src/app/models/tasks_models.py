@@ -18,10 +18,18 @@ from src.app.models.users_models import User
 class Task(Base, BaseModel):
     """Таблица Tasks """
 
-    title: Mapped[str] = mapped_column(String(length=100), nullable=False)
-    description: Mapped[str] = mapped_column(String(length=300), nullable=True)
+    title: Mapped[str] = mapped_column(
+        String(length=100),
+        nullable=False
+    )
+    description: Mapped[str] = mapped_column(
+        String(length=300),
+        nullable=True
+    )
     status: Mapped[TaskStatus] = mapped_column(
-        Enum(TaskStatus), default=TaskStatus.CREATED)
+        Enum(TaskStatus),
+        default=TaskStatus.CREATED
+    )
 
     # Дополнительные поля для назначения и завершения задачи
     assigned_to_id: Mapped[Optional[UUID]
@@ -31,6 +39,12 @@ class Task(Base, BaseModel):
 
     # Связанные отношения
     assigned_to: Mapped['User'] = relationship(
-        "User", foreign_keys=[assigned_to_id], backref='assigned_tasks')
+        "User",
+        foreign_keys=[assigned_to_id],
+        backref='assigned_tasks'
+    )
     completed_by: Mapped['User'] = relationship(
-        "User", foreign_keys=[completed_by_id], backref='completed_tasks')
+        "User",
+        foreign_keys=[completed_by_id],
+        backref='completed_tasks'
+    )

@@ -2,33 +2,39 @@
 """ Назначение: Отправка письма """
 
 
-# import aiohttp
-# from jinja2 import Environment, FileSystemLoader
-# from aiosmtplib import send_mail
+from email.message import EmailMessage
+from jinja2 import Environment, FileSystemLoader
+from aiosmtplib import SMTP
 
-# from src.app.settings import EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASSWORD
+from src.app.core.config import app_settings
 
 
-# async def send_email(to_address: str, subject: str, message_body: str):
-#     async with aiohttp.ClientSession() as session:
+async def send_email(
+    to_address: str,
+    subject: str,
+    message_body: str
+):
+    # Загружаем шаблон письма
+    env = Environment(loader=FileSystemLoader('templates'))
+    template = env.get_template('notification_email.html')
+    html_content = template.render(body=message_body)
 
-#         # Загрузка шаблона
-#         env = Environment(loader=FileSystemLoader('templates'))
-#         template = env.get_template('notification_email.html')
-#         # Генерация HTML-содержимого
-#         html_content = template.render(message=message_body)
+    # Формируем электронное письмо
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = app_settings.EMAIL_USER
+    msg["To"] = to_address
+    # Устанавливаем контент письма как HTML
+    msg.set_content(html_content, subtype="html")
 
-#         # Подготовка сообщения
-#         msg = {
-#             'Subject': subject,
-#             'From': EMAIL_USER,
-#             'To': to_address,
-#             'Content-Type': 'text/html',
-#             'Body': html_content
-#         }
-
-#         # Отправка почты
-#         server = await send_mail.SMTP(host=EMAIL_HOST, port=EMAIL_PORT)
-#         await server.starttls()
-#         await server.login(EMAIL_USER, EMAIL_PASSWORD)
-#         await server.send_message(msg)
+    # Отправляем письмо
+    async with SMTP(
+        hostname=app_settings.EMAIL_HOST,
+        port=app_settings.EMAIL_PORT,
+        use_tls=True
+    ) as smtp:
+        await smtp.login(
+            app_settings.EMAIL_USER,
+            app_settings.EMAIL_PASSWORD
+        )
+        await smtp.send_message(msg)
