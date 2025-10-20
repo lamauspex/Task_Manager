@@ -77,3 +77,25 @@ async def remove_user(
 
     success = await service.delete(user_id)
     return success
+
+
+@router.get("/dashboard/list",
+            summary="Список пользователей для дашборда")
+@exception_handler
+async def get_users_dashboard_list(
+    service: UsersService = Depends(get_users_service)
+):
+    """Получить список всех пользователей для отображения на дашборде"""
+    users = await service.get_all()
+
+    def format_name(name):
+        return name.capitalize() if name else ""
+
+    return [
+        {
+            "id": user.id,
+            "full_name": f"{format_name(user.first_name)} {format_name(user.last_name)}",
+            "email": user.email
+        }
+        for user in users
+    ]
