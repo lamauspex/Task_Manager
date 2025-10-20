@@ -4,7 +4,7 @@
 
 from typing import Optional
 from uuid import UUID
-from pydantic import Field
+from pydantic import ConfigDict, Field
 
 from src.app.schemas.base import CreateBase, OutputBase, UpdateBase
 from src.app.core.constants import TaskStatus
@@ -62,8 +62,7 @@ class TaskUpdate(UpdateBase):
         description="Пользователь, завершивший задачу"
     )
 
-    class Config:
-        extra = 'forbid'  # Запретить дополнительные поля
+    model_config = ConfigDict(extra='forbid')
 
 
 class TaskOut(OutputBase, TaskBase):

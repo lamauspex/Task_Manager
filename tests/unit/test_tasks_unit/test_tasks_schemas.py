@@ -29,7 +29,6 @@ def test_task_create_unicode_characters():
 def test_task_create_valid():
     """ Тестирует создание задачи с валидными данными """
     task_data = {
-
         "title": "Test Task",
         "description": "This is a test task.",
     }

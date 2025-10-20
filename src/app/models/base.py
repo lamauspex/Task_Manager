@@ -17,13 +17,15 @@ class TimestampMixin:
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),
-        nullable=False
+        nullable=False,
+        comment='Дата создания'
     )
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         onupdate=func.now(),
         server_default=func.now(),
-        nullable=True
+        nullable=True,
+        comment='Дата последнего обновления'
     )
 
 
@@ -33,7 +35,9 @@ class PrimaryKeyMixin:
     id: Mapped[UUID] = mapped_column(
         UUID(as_uuid=True),
         default=uuid4,
-        primary_key=True
+        primary_key=True,
+        index=True,
+        comment='Уникальный идентификатор'
     )
 
 
