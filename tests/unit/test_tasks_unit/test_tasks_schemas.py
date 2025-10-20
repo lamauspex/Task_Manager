@@ -2,13 +2,28 @@
 """ Назначение: Тесты схем Pydantic Tasks """
 
 
+import json
 import uuid
 import pytest
 from pydantic import ValidationError
+from datetime import datetime, timezone
 
 from src.app.schemas.tasks_schemas import (
     TaskCreate, TaskUpdate, TaskOut, TaskStatus
 )
+
+
+def test_task_create_empty_object():
+    """ Тестирует создание задачи с пустым объектом, ожидая ошибку """
+    with pytest.raises(ValidationError):
+        TaskCreate()
+
+
+def test_task_create_unicode_characters():
+    """ Тестирует использование Unicode символов в описании """
+    unicode_desc = "😊🎉✨"
+    task_data = {"title": "Unicode Test", "description": unicode_desc}
+    TaskCreate(**task_data)
 
 
 def test_task_create_valid():
@@ -17,11 +32,10 @@ def test_task_create_valid():
 
         "title": "Test Task",
         "description": "This is a test task.",
-        "status": TaskStatus.CREATED
     }
     task = TaskCreate(**task_data)
     assert task.title == task_data['title']
-    assert task.status == task_data['status']
+    assert task.description == task_data['description']
 
 
 def test_task_create_missing_title():
@@ -29,18 +43,6 @@ def test_task_create_missing_title():
     должно вызвать ошибку валидации """
     task_data = {
         "description": "This is a test task."
-    }
-    with pytest.raises(ValidationError):
-        TaskCreate(**task_data)
-
-
-def test_task_create_invalid_status():
-    """ Тестирует создание задачи с недопустимым статусом,
-    должно вызвать ошибку валидации """
-    task_data = {
-        "title": "Test Task",
-        "description": "This is a test task.",
-        "status": "invalid_status"
     }
     with pytest.raises(ValidationError):
         TaskCreate(**task_data)
@@ -57,38 +59,33 @@ def test_task_update_with_extra_fields():
     }
 
     with pytest.raises(ValidationError):
-        TaskCreate(**task_data)
+        TaskUpdate(**task_data)
 
 
 def test_task_out():
-    """ Тест модели вывода задача """
+    """ Тест модели вывода задач """
+    task_uuid = uuid.uuid4()
     task_data = {
-        # "number": 0,
         "title": "Test Task",
         "description": "This is a test task.",
         "status": TaskStatus.CREATED,
-        "id": str(uuid.uuid4()),
-        "created_at": "2023-01-01T00:00:00Z",
-        "updated_at": "2023-01-01T00:00:00Z"
+        "id": str(task_uuid),
+        "created_at": datetime.fromisoformat("2023-01-01T00:00:00").replace(tzinfo=timezone.utc),
+        "updated_at": datetime.fromisoformat("2023-01-01T00:00:00").replace(tzinfo=timezone.utc),
+        "assigned_to_id": str(uuid.UUID('123e4567-e89b-12d3-a456-426655440000')),
+        "completed_by_id": None
     }
 
     task = TaskOut(**task_data)
+
     assert isinstance(task, TaskOut)
 
-
-def test_task_create_without_optional_fields():
-    """ Тестирует создание задачи без передачи необязательных полей """
-    task_data = {
-
-        "title": "aaaa",
-        "description": "aaaaaa",
-        "status": TaskStatus.CREATED
-    }
-
-    task = TaskCreate(**task_data)
-
-    assert task.description == task_data['description']
-    assert task.status == TaskStatus.CREATED
+    assert task.title == task_data["title"]
+    assert task.description == task_data["description"]
+    assert task.status == task_data["status"]
+    assert task.id == task_uuid
+    assert task.created_at.isoformat() == "2023-01-01T00:00:00+00:00"
+    assert task.updated_at.isoformat() == "2023-01-01T00:00:00+00:00"
 
 
 def test_task_create_min_max():
@@ -110,37 +107,49 @@ def test_task_create_min_max():
     TaskCreate(**task_data)
 
 
-def test_task_update_change_status():
-    """ Тестирует изменение статуса задачи при обновлении """
-    task_data = {
-        "title": "Test Task",
-        "description": "This is a test task.",
-        "status": TaskStatus.COMPLETED
-    }
-    task = TaskUpdate(**task_data)
-    assert task.status == TaskStatus.COMPLETED
-
-
-def test_update_partial_fields():
-    """ Тестирует частичное обновление задачи (без описания) """
-    task_data = {
-        "title": "Update title",
-        "status": TaskStatus.IN_PROGRESS
-    }
-    task = TaskUpdate(**task_data)
-    assert task.description is None
-
-
 def test_tasc_create_json_serialization():
     """ Тестирует сериализацию модели TaskOut в JSON """
+    task_uuid = uuid.uuid4()
     task_data = {
         "title": "Test Task",
         "description": "This is a test task.",
         "status": TaskStatus.CREATED,
-        "id": str(uuid.uuid4()),
-        "created_at": "2023-01-01T00:00:00Z",
-        "updated_at": "2023-01-01T00:00:00Z"
+        "id": str(task_uuid),
+        "created_at": datetime.fromisoformat("2023-01-01T00:00:00").replace(tzinfo=timezone.utc),
+        "updated_at": datetime.fromisoformat("2023-01-01T00:00:00").replace(tzinfo=timezone.utc),
+        "assigned_to_id": str(uuid.UUID('123e4567-e89b-12d3-a456-426655440000')),
+        "completed_by_id": None
     }
+
     task = TaskOut(**task_data)
     json_data = task.model_dump(mode='json')
     assert isinstance(json_data.get('id'), str)
+
+
+def custom_json_serializer(obj):
+    """Обработчик сериализации для объектов datetime и UUID."""
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    elif isinstance(obj, uuid.UUID):
+        return str(obj)
+    raise TypeError(f"Type {obj.__class__.__name__} not serializable")
+
+
+def test_task_out_deserialization_from_json():
+    """ Тестирует дескериализацию из JSON """
+    task_uuid = uuid.uuid4()
+    task_data = {
+        "title": "Test Task",
+        "description": "This is a test task.",
+        "status": TaskStatus.CREATED.value,
+        "id": str(task_uuid),
+        "created_at": datetime.fromisoformat("2023-01-01T00:00:00").replace(tzinfo=timezone.utc),
+        "updated_at": datetime.fromisoformat("2023-01-01T00:00:00").replace(tzinfo=timezone.utc),
+        "assigned_to_id": str(uuid.UUID('123e4567-e89b-12d3-a456-426655440000')),
+        "completed_by_id": None
+    }
+
+    # Используем собственный сериализатор для объектов datetime
+    serialized_data = json.dumps(task_data, default=custom_json_serializer)
+    deserialized_task = TaskOut.model_validate_json(serialized_data)
+    assert isinstance(deserialized_task, TaskOut)

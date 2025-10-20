@@ -62,6 +62,9 @@ class TaskUpdate(UpdateBase):
         description="Пользователь, завершивший задачу"
     )
 
+    class Config:
+        extra = 'forbid'  # Запретить дополнительные поля
+
 
 class TaskOut(OutputBase, TaskBase):
     """ Вывод задачи """

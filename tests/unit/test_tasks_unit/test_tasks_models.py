@@ -2,9 +2,10 @@
 """ Назначение: Тесты моделей TASK """
 
 
-from sqlalchemy import select
 import pytest
 import sqlalchemy
+from uuid import uuid4
+from sqlalchemy import select
 
 from src.app.core.constants import TaskStatus
 from src.app.models.tasks_models import Task
@@ -22,6 +23,22 @@ async def test_task_creation(db_session):
     assert retrieved_task.title == new_task.title
     assert retrieved_task.description == new_task.description
     assert retrieved_task.status == new_task.status
+
+
+@pytest.mark.asyncio
+async def test_task_creation_with_id(db_session):
+    """ Проверяет создание задачи с заданным UUID """
+    task_id = uuid4()
+
+    new_task = TaskFactory.build(id=task_id)
+
+    db_session.add(new_task)
+    await db_session.commit()
+
+    retrieved_task = await db_session.get(Task, new_task.id)
+
+    assert retrieved_task.id == new_task.id
+    assert retrieved_task.title == new_task.title
 
 
 @pytest.mark.asyncio
@@ -135,17 +152,3 @@ async def test_bulk_insert_tasks(db_session):
     fetched_tasks = results.scalars().all()
 
     assert len(fetched_tasks) >= 10
-
-
-# @pytest.mark.asyncio
-# async def test_unique_number_violation(db_session):
-#     """Проверка соблюдения уникальности номера задачи."""
-#     first_task = TaskFactory.create(number=1)
-#     second_task = TaskFactory.build(number=first_task.number)
-#     db_session.add(first_task)
-#     await db_session.commit()
-
-#     db_session.add(second_task)
-
-#     with pytest.raises(Exception):
-#         await db_session.commit()

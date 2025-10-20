@@ -85,6 +85,12 @@ uvicorn src.main:app --reload
 http://localhost:8000
 ```
 
+6. **Для запуска тестов**
+```shell
+pytest --html=report.html
+```
+
+
 
 
 Ваш вклад в проект приветствуется! Если вы хотите внести изменения или улучшения, создайте pull request или откройте issue на GitHub.
