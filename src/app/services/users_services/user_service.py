@@ -1,4 +1,3 @@
-
 """ Назначение: Сервис для работы с пользователями """
 
 
@@ -26,6 +25,11 @@ class UsersService(IUserService):
         user_data_dict = user_data.model_dump()
         user_data_dict.pop('password')
         user_data_dict['password_hash'] = hashed_password
+
+        # Конвертируем enum в строку для хранения в БД
+        if 'role' in user_data_dict and hasattr(user_data_dict['role'], 'value'):
+            user_data_dict['role'] = user_data_dict['role'].value
+
         # Передаем данные в репозиторий
         new_user = await self.repository.add(User(**user_data_dict))
         return UserOut.model_validate(new_user)

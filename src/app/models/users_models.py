@@ -1,4 +1,3 @@
-
 """ Назначение: Модели пользователей """
 
 
@@ -39,9 +38,9 @@ class User(Base, BaseModel):
         comment='Хэш пароля'
     )
 
-    role: Mapped[Role] = mapped_column(
-        Enum(Role),
-        default=Role.USER,
+    role: Mapped[str] = mapped_column(
+        String(length=10),
+        default=Role.USER.value,
         nullable=False,
         comment='Роль пользователя в системе'
     )
@@ -73,6 +72,14 @@ class User(Base, BaseModel):
             raise ValueError(
                 f"Email cannot exceed 255 characters, got {len(email)}")
         return email
+
+    @validates('role')
+    def validate_role(self, key, role):
+        # Проверяем, что роль соответствует одному из допустимых значений
+        valid_roles = [r.value for r in Role]
+        if role not in valid_roles:
+            raise ValueError(f"Role must be one of {valid_roles}, got {role}")
+        return role
 
     @property
     def full_name(self) -> str:

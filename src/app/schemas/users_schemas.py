@@ -1,11 +1,9 @@
+from src.app.schemas.base import CreateBase, OutputBase, UpdateBase
+from src.app.core.constants import Role
+from pydantic import ConfigDict, EmailStr, Field, BaseModel, computed_field, field_validator
+from typing import Optional
 
 """ Назначение: Схемы Users """
-
-from typing import Optional
-from pydantic import ConfigDict, EmailStr, Field, BaseModel, computed_field
-
-from src.app.core.constants import Role
-from src.app.schemas.base import CreateBase, OutputBase, UpdateBase
 
 
 class UserBase(CreateBase):
@@ -32,7 +30,7 @@ class UserBase(CreateBase):
         description="Адрес электронной почты.",
         examples=["test@example.com"]
     )
-    role: str = Field(
+    role: Role = Field(
         default=Role.USER,
         description="Роль пользователя"
     )
@@ -45,9 +43,16 @@ class UserBase(CreateBase):
 class UserIn(UserBase):
     password: str = Field(
         min_length=8,
-        max_length=128,
+        max_length=72,  # Ограничение до 72 символов для bcrypt
         description="Пароль пользователя."
     )
+
+    @field_validator('password')
+    @classmethod
+    def validate_password_length(cls, v):
+        if len(v) > 72:
+            raise ValueError('Пароль не может быть длиннее 72 символов')
+        return v
 
 
 class AuthUserIn(BaseModel):
@@ -64,19 +69,33 @@ class AuthUserIn(BaseModel):
     )
     password: str = Field(
         min_length=8,
-        max_length=128,
+        max_length=72,  # Ограничение до 72 символов для bcrypt
         description="Пароль пользователя",
         examples=["SecurePassword123!"]
     )
+
+    @field_validator('password')
+    @classmethod
+    def validate_password_length(cls, v):
+        if len(v) > 72:
+            raise ValueError('Пароль не может быть длиннее 72 символов')
+        return v
 
 
 class UserCreate(UserBase):
     """Создание пользователя."""
     password: str = Field(
         min_length=8,
-        max_length=128,
+        max_length=72,  # Ограничение до 72 символов для bcrypt
         description="Пароль пользователя."
     )
+
+    @field_validator('password')
+    @classmethod
+    def validate_password_length(cls, v):
+        if len(v) > 72:
+            raise ValueError('Пароль не может быть длиннее 72 символов')
+        return v
 
 
 class UserUpdate(UpdateBase):
@@ -102,7 +121,18 @@ class UserUpdate(UpdateBase):
 
 class UserOut(OutputBase, UserBase):
     """ Вывод пользователя """
-    model_config = ConfigDict(extra='forbid')
+    model_config = ConfigDict(extra='forbid', from_attributes=True)
+
+    @field_validator('role', mode='before')
+    @classmethod
+    def convert_role_to_enum(cls, v):
+        """Конвертируем строку role в enum при валидации из БД"""
+        if isinstance(v, str):
+            try:
+                return Role(v)
+            except ValueError:
+                raise ValueError(f"Invalid role value: {v}")
+        return v
 
     @computed_field
     @property

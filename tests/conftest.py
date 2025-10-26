@@ -1,4 +1,3 @@
-
 """ Назначение: Общая конфигурация тестов """
 
 
@@ -13,6 +12,8 @@ from fastapi.testclient import TestClient
 
 from src.app.core.database import Base
 from src.main import app
+from src.app.repositories.users_repo import UsersRepository
+from src.app.services.users_services.user_service import UsersService
 
 load_dotenv(dotenv_path=Path('./tests/.env.test'), override=True)
 
@@ -34,8 +35,16 @@ async def db_session():
         yield session
 
 
-# Kлиент для тестирования API
+# Клиент для тестирования API
 @pytest.fixture(name="client")
 def fixture_client():
     client = TestClient(app)
     return client
+
+
+# Фикстура для сервиса пользователей
+@pytest_asyncio.fixture(scope='function')
+async def users_service(db_session: AsyncSession) -> UsersService:
+    """Фикстура для сервиса пользователей"""
+    repository = UsersRepository(db_session)
+    return UsersService(repository)

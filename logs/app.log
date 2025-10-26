@@ -82,3 +82,103 @@
 2025-10-26 23:36:51,001 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000023FB486BA40>
 2025-10-26 23:36:51,497 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000023FB47CC440>
 2025-10-26 23:36:51,497 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000023FB47CC440>
+2025-10-26 23:45:33,718 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('api', 'пользователь', 'api@example.com', b'$2b$12$hLFP99rOqyhX8hsTiFJIROLF4Xu6yGk42o3tig8aAC8o5GmHEeaZa', 'user', 1, 'aad26ea226f04177b58dfead50255b87')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x00000221762A1BC0>
+2025-10-26 23:45:33,718 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('api', 'пользователь', 'api@example.com', b'$2b$12$hLFP99rOqyhX8hsTiFJIROLF4Xu6yGk42o3tig8aAC8o5GmHEeaZa', 'user', 1, 'aad26ea226f04177b58dfead50255b87')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x00000221762A1BC0>
+2025-10-26 23:45:35,200 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('wrong', 'user', 'wrong@example.com', b'$2b$12$oMFmdmRJGtBpThnYTAvXOuIVeDKoyJOrQgQbWMKvNqR3ZkKmFxPqi', 'user', 1, '12c31e6774de4d5281562e1d49a00298')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x0000022177C2C2C0>
+2025-10-26 23:45:35,200 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('wrong', 'user', 'wrong@example.com', b'$2b$12$oMFmdmRJGtBpThnYTAvXOuIVeDKoyJOrQgQbWMKvNqR3ZkKmFxPqi', 'user', 1, '12c31e6774de4d5281562e1d49a00298')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x0000022177C2C2C0>
+2025-10-26 23:45:36,231 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('protected', 'user', 'protected@example.com', b'$2b$12$ns6AHG/YAEx8mAZnYDDfP.HSh7Xi3y/K7bjlRRJ6vg9MX0Yz/BnsO', 'user', 1, '713b641635634aa4995abb4e63be69dc')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x0000022177E874C0>
+2025-10-26 23:45:36,231 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('protected', 'user', 'protected@example.com', b'$2b$12$ns6AHG/YAEx8mAZnYDDfP.HSh7Xi3y/K7bjlRRJ6vg9MX0Yz/BnsO', 'user', 1, '713b641635634aa4995abb4e63be69dc')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x0000022177E874C0>
+2025-10-26 23:45:37,554 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('expired', 'user', 'expired@example.com', b'$2b$12$opYhARFoxashpAU4Kxsqb.aESzZOCBp3dKazhxq/1buJVeptyOHTy', 'user', 1, '773281f6520f438fa3a6bfc8dc1b7816')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x00000221768CBC80>
+2025-10-26 23:45:37,554 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('expired', 'user', 'expired@example.com', b'$2b$12$opYhARFoxashpAU4Kxsqb.aESzZOCBp3dKazhxq/1buJVeptyOHTy', 'user', 1, '773281f6520f438fa3a6bfc8dc1b7816')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x00000221768CBC80>
+2025-10-26 23:45:38,607 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('case', 'test', 'casetest@example.com', b'$2b$12$bhNzXDzPqMZMAxLFZlgLU.C.YbwUL4ONeXX9nU07gRTR7iZ2bWvw6', 'user', 1, 'ae7eb014667e427abfa648158c865fa6')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x0000022177EC38C0>
+2025-10-26 23:45:38,607 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('case', 'test', 'casetest@example.com', b'$2b$12$bhNzXDzPqMZMAxLFZlgLU.C.YbwUL4ONeXX9nU07gRTR7iZ2bWvw6', 'user', 1, 'ae7eb014667e427abfa648158c865fa6')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x0000022177EC38C0>
+2025-10-26 23:45:39,375 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: password cannot be longer than 72 bytes, truncate manually if necessary (e.g. my_password[:72]), traceback=<traceback object at 0x0000022176977100>
+2025-10-26 23:45:39,375 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: password cannot be longer than 72 bytes, truncate manually if necessary (e.g. my_password[:72]), traceback=<traceback object at 0x0000022176977100>
+2025-10-26 23:45:39,685 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('мин', 'пароль', 'minpassword@example.com', b'$2b$12$ytH0XQJcKJh01ZlYC5eF/uHIEzTPRzSS0BkPPnWwfNjmVekJZoNh2', 'user', 1, '729c262716474dd08ffc7e425dfffd03')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x0000022177BAD4C0>
+2025-10-26 23:45:39,685 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('мин', 'пароль', 'minpassword@example.com', b'$2b$12$ytH0XQJcKJh01ZlYC5eF/uHIEzTPRzSS0BkPPnWwfNjmVekJZoNh2', 'user', 1, '729c262716474dd08ffc7e425dfffd03')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x0000022177BAD4C0>
+2025-10-26 23:45:40,441 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('тест', 'обновление', 'update.extra@example.com', b'$2b$12$gc2.OXZNCchS9AekDjixEOoc9IHLvh24eHY/Qo8drmErrEof6vt7q', 'user', 1, '6aadb70d3aeb48a5b42c6ed885ef1571')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x000002217775CCC0>
+2025-10-26 23:45:40,441 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('тест', 'обновление', 'update.extra@example.com', b'$2b$12$gc2.OXZNCchS9AekDjixEOoc9IHLvh24eHY/Qo8drmErrEof6vt7q', 'user', 1, '6aadb70d3aeb48a5b42c6ed885ef1571')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x000002217775CCC0>
+2025-10-26 23:45:40,870 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('регистр', 'тест', 'casesensitive@example.com', b'$2b$12$RYs2RX7lwaUHtc3ftZPMaOpH0.Ql14LUV/54a1axrf2fVgDKLHAvi', 'user', 1, '3a40515c0d3742deba8c461b9de12927')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x000002217644A800>
+2025-10-26 23:45:40,870 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: (sqlite3.IntegrityError) UNIQUE constraint failed: users.email
+[SQL: INSERT INTO users (first_name, last_name, email, password_hash, role, active, id) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING created_at, updated_at]
+[parameters: ('регистр', 'тест', 'casesensitive@example.com', b'$2b$12$RYs2RX7lwaUHtc3ftZPMaOpH0.Ql14LUV/54a1axrf2fVgDKLHAvi', 'user', 1, '3a40515c0d3742deba8c461b9de12927')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), traceback=<traceback object at 0x000002217644A800>
+2025-10-26 23:45:42,072 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x00000221765046C0>
+2025-10-26 23:45:42,072 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x00000221765046C0>
+2025-10-26 23:45:43,763 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000022177EEF040>
+2025-10-26 23:45:43,763 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000022177EEF040>
+2025-10-26 23:45:44,140 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000022176782A40>
+2025-10-26 23:45:44,140 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000022176782A40>
+2025-10-26 23:45:44,719 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000022177E69040>
+2025-10-26 23:45:44,719 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000022177E69040>
+2025-10-26 23:45:45,084 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000022177805540>
+2025-10-26 23:45:45,084 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000022177805540>
+2025-10-26 23:55:35,771 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000021F24E1A840>
+2025-10-26 23:55:35,771 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000021F24E1A840>
+2025-10-26 23:55:35,886 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000021F2511BFC0>
+2025-10-26 23:55:35,886 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x0000021F2511BFC0>
+2025-10-27 00:01:02,948 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x00000220A7797600>
+2025-10-27 00:01:02,948 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x00000220A7797600>
+2025-10-27 00:01:03,059 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x00000220A7725FC0>
+2025-10-27 00:01:03,059 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 'user' is not among the defined enum values. Enum name: role. Possible values: USER, ADMIN, traceback=<traceback object at 0x00000220A7725FC0>
+2025-10-27 00:13:16,028 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 1 validation error for UserOut
+role
+  Value error, Invalid role value: user [type=value_error, input_value='user', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error, traceback=<traceback object at 0x000001F3610E3C40>
+2025-10-27 00:13:16,028 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 1 validation error for UserOut
+role
+  Value error, Invalid role value: user [type=value_error, input_value='user', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error, traceback=<traceback object at 0x000001F3610E3C40>
+2025-10-27 00:13:16,152 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 1 validation error for UserOut
+role
+  Value error, Invalid role value: user [type=value_error, input_value='user', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error, traceback=<traceback object at 0x000001F3610827C0>
+2025-10-27 00:13:16,152 - task_manager - CRITICAL - c:\Users\pmokr\OneDrive\Рабочий стол\task-manager\src\app\exceptions\decorators.py:47 - Unexpected server error: 1 validation error for UserOut
+role
+  Value error, Invalid role value: user [type=value_error, input_value='user', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error, traceback=<traceback object at 0x000001F3610827C0>
