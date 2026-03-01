@@ -21,4 +21,4 @@ ENV PYTHONUNBUFFERED=1
 ENV FLASK_ENV=production
 
 # Устанавливаем точку входа
-ENTRYPOINT ["python", "-m", "src.main"]
+ENTRYPOINT ["python", "app.py"]

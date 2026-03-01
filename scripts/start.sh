@@ -6,4 +6,4 @@ echo "Запускаем сервер..."
 cd $(dirname "$0")/.. || exit
 
 # Запускаем приложение через uvicorn
-uvicorn src.main:app --reload --log-level info
+uvicorn app:app--reload --log-level info

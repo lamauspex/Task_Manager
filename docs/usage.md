@@ -1,89 +1,149 @@
-# Usage Guide
+# API Reference
 
-## Руководство пользователя предназначено для ознакомления с возможностями нашего API и рекомендациями по правильному использованию.
+Подробные примеры запросов к API.
 
-### Getting Started
+## Аутентификация
 
-Перед началом работы убедитесь, что ваш проект установлен и запущен. Следуйте простым шагам:
+### Регистрация пользователя
 
-#### Конфигурация Google Calendar API
-
-1. Зарегистрируйте приложение в Google Cloud Console и получите файл `credentials.json`.
-2. Создайте копию файла `credentials.example.json` и переименуйте его в `credentials.json`.
-3. Поместите его в папку src/app/integretions
-
-#### В файле .env заменить данные
-- EMAIL_USER=EMAIL_USER
-- EMAIL_PASSWORD=EMAIL_PASSWORD
-
-1. **Клонируйте репозиторий**
-```shell
-git clone https://github.com/lamauspex/Task_Manager
-   cd task-manager
-   ```
-
-2. **Создание токена**
-```shell
-mkdir certs
-```
-```shell
-cd certs
-```
-```shell
-openssl genrsa -out jwt-private.pem 2048
-```
-```shell
-openssl rsa -in jwt-private.pem -outform PEM -pubout -out jwt-public.pem
+```bash
+curl -X POST http://localhost:8000/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "secret123",
+    "first_name": "John",
+    "last_name": "Doe"
+  }'
 ```
 
-3. **Выполните установку**
-```shell
-pip install -r requirements.txt
+### Вход в систему
+
+```bash
+curl -X POST http://localhost:8000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "secret123"
+  }'
 ```
 
-4. **Запустите приложение**
-```shell
-uvicorn src.main:app --reload
+Ответ:
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "token_type": "bearer"
+}
 ```
 
-5. **Затем откройте браузер и перейдите по адресу**
-```shell
-http://localhost:8000
+---
+
+## Задачи
+
+### Создание задачи
+
+```bash
+curl -X POST http://localhost:8000/tasks/ \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Новая задача",
+    "description": "Описание задачи",
+    "priority": "high",
+    "deadline": "2025-12-31T23:59:00"
+  }'
 ```
 
+### Получение списка задач
 
+```bash
+curl -X GET http://localhost:8000/tasks/ \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
 
-### Endpoints Reference
-Ниже приведены основные конечные точки (routes) нашего API с примерами запросов.
+### Получение задачи по ID
 
-#### Users Endpoints
-POST /users: Создает нового пользователя.curl -X POST http://localhost:8000/users -H "Content-Type: application/json" -d '{"email":"user@example.com","password":"secret"}'
+```bash
+curl -X GET http://localhost:8000/tasks/1/ \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
 
-GET /users/:id: Получает информацию о пользователе по его уникальному идентификатору.curl -X GET http://localhost:8000/users/1
+### Обновление задачи
 
-PUT /users/:id: Обновляет информацию о пользователе.curl -X PUT http://localhost:8000/users/1 -H "Content-Type: application/json" -d '{"firstName":"John","lastName":"Doe"}'
+```bash
+curl -X PUT http://localhost:8000/tasks/1/ \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Обновлённая задача",
+    "description": "Новое описание",
+    "status": "in_progress"
+  }'
+```
 
+### Удаление задачи
 
-#### Tasks Endpoints
-POST /tasks: Создает новую задачу.curl -X POST http://localhost:8000/tasks -H "Content-Type: application/json" -d '{"title":"New Task","description":"This is a new task."}'
+```bash
+curl -X DELETE http://localhost:8000/tasks/1/ \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
 
-GET /tasks/:id: Получает информацию о задаче по её идентификатору.curl -X GET http://localhost:8000/tasks/1
+---
 
-PUT /tasks/:id: Обновляет задачу.curl -X PUT http://localhost:8000/tasks/1 -H "Content-Type: application/json" -d '{"title":"Updated Title","description":"Updated Description"}'
+## Пользователи
 
+### Получение профиля
 
+```bash
+curl -X GET http://localhost:8000/users/me/ \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
 
-### Authentication
-Аутентификация выполняется с использованием JWT (JSON Web Tokens). Токен необходим для большинства маршрутов, требующих авторизацию.
+### Обновление профиля
 
-Login: Выполняя запрос на /login, вы получаете JWT-токен, который необходимо передавать в последующих запросах.
+```bash
+curl -X PUT http://localhost:8000/users/me/ \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "first_name": "Jane",
+    "last_name": "Smith"
+  }'
+```
 
+---
 
-### Testing
-Вы можете воспользоваться встроенными средствами тестирования FastAPI для написания и запуска тестов:
+## Аналитика
 
-pytest tests
+### Нагрузка сотрудников
 
+```bash
+curl -X GET http://localhost:8000/analytics/load \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
 
-### Conclusion
-Это руководство охватывает основы использования нашего API и даёт представление о возможных операциях с данными. Продолжайте изучать документацию и экспериментируйте с нашим API для лучшего понимания возможностей.
+### Статистика задач
+
+```bash
+curl -X GET http://localhost:8000/analytics/tasks \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+---
+
+## Google Calendar
+
+### Синхронизация задачи с календарём
+
+```bash
+curl -X POST http://localhost:8000/tasks/1/sync-calendar \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+---
+
+## Notes
+
+- Во всех запросах, требующих авторизации, добавляйте заголовок `Authorization: Bearer YOUR_TOKEN`
+- Токен получаете после успешного `/auth/login`
+- Срок действия токена: настраивается в `.env` (по умолчанию 30 минут)

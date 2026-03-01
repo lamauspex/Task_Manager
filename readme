@@ -1,0 +1,97 @@
+# Task Manager Pro
+
+
+## 🟢 Описание проекта
+Проект представляет собой веб-приложение, построенное на фреймворке FastAPI, которое реализует управление задачами, интеграцию с внешним сервисом календаря и поддержку аутентификации пользователей с использованием JWT. Цель проекта — предоставление удобного инструмента для управления задачами, делегирования их другим пользователям и отслеживания прогресса.
+
+### Основные функции
+
+- **Простое управление задачами:** Создание, изменение и назначение задач сотрудникам.
+
+- **Умные уведомления:** Email-уведомления о назначении новых задач.
+
+- **Отчётность и аналитика:** Полезные отчёты по нагрузке сотрудников и выполненным задачам.
+
+- **Интеграции:** Совместимая работа с Google Calendar
+
+
+
+## 🟢 Технологии
+
+Проект использует следующие технологии:
+
+- **Framework:** FastAPI
+- **ORM:** SQLAlchemy
+- **Database:** Sqlite
+- **Authentication:** Passlib, bcrypt
+- **Тестирование:** Pytest & Gauge
+- **CI/CD:** GitHub Actions
+- **Containerization:** Docker
+- **API Documentation:** SwaggerUI
+- **Data Analysis & Visualization:** Pandas, Plotly
+
+
+
+## 🟢 Установка
+
+### Просто выполните следующие шаги:
+
+### Конфигурация Google Calendar API
+
+1. Зарегистрируйте приложение в Google Cloud Console и получите файл `credentials.json`.
+2. Создайте копию файла `credentials.example.json` и переименуйте его в `credentials.json`.
+3. Поместите его в папку src/app/integretions
+
+### В файле .env заменить данные
+- EMAIL_USER=EMAIL_USER
+- EMAIL_PASSWORD=EMAIL_PASSWORD
+
+
+
+1. **Клонируйте репозиторий**
+```shell
+git clone https://github.com/lamauspex/Task_Manager
+   cd task-manager
+   ```
+
+
+2. **JWT ключи генерируются автоматически**
+Ключи создаются при первом запуске приложения в папке `certs/`.
+
+
+3. **Выполните установку**
+```shell
+pip install -r requirements.txt
+```
+
+4. **Запустите приложение**
+```shell
+uvicorn app:app --reload
+```
+
+5. **Затем откройте браузер и перейдите по адресу**
+```shell
+http://localhost:8000
+```
+
+6. **Для запуска тестов**
+```shell
+pytest --html=report.html
+```
+
+7. **Для запуска контейнера**
+  1. Раскомментируйте DATABASE_URL в .env (уберите #)
+  2. Запустите
+     docker-compose -f infra/docker/docker-compose.yml up -d
+
+
+#### Контакты
+
+- Имя: Резник Кирилл
+- Email: lamauspex@yandex.ru
+- GitHub: https://github.com/lamauspex
+- Telegram: @lamauspex
+
+
+
+
