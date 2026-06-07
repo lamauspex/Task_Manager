@@ -4,4 +4,6 @@ __pycache__/
 venv/
 credentials.json
 .pytest_cache/
-
+REFACTORING_PLAN/
+old_project/
+backend/

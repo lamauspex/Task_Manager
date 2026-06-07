@@ -1,0 +1,23 @@
+services:
+  # ──────────────────────────────────────────────────────────────
+  # PostgreSQL для Auth Service
+  # ──────────────────────────────────────────────────────────────
+  
+  postgres-auth:
+    image: postgres:15-alpine
+    container_name: tm-postgres-auth
+    environment:
+      POSTGRES_USER: taskmanager
+      POSTGRES_PASSWORD: taskmanager_pass
+      POSTGRES_DB: auth_db
+    ports:
+      - "5431:5432"
+    volumes:
+      - postgres_auth_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskmanager"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - taskmanager-network
