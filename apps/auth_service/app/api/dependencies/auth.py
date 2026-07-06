@@ -4,32 +4,23 @@
 Предоставляет функции для получения текущего пользователя и проверки ролей.
 """
 
-# Импорты для аннотаций типов
 from typing import Annotated
-# Импорты FastAPI для зависимостей
 from fastapi import Depends
-# Импорты OAuth2 схемы для Bearer токенов
 from fastapi.security import OAuth2PasswordBearer
 
-# Импорты фабрики сервиса аутентификации
 from apps.auth_service.app.api.dependencies.services import get_auth_service
-# Импорты констант ролей
-from apps.auth_service.app.core.constants import Role  # Роли пользователей
-# Импорты исключений
-from apps.auth_service.app.exceptions.http import ForbiddenError  # Ошибка доступа
-# Импорты модели пользователя
-from apps.auth_service.app.models.user import User  # Модель пользователя
-# Импорты сервиса аутентификации
-from apps.auth_service.app.services.service import AuthService  # Сервис auth
+from apps.auth_service.app.core.constants import Role
+from apps.auth_service.app.exceptions.http import ForbiddenError
+from apps.auth_service.app.models.user import User
+from apps.auth_service.app.services.service import AuthService
 
 # OAuth2 схема для извлечения Bearer токена из заголовка Authorization
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 
 async def get_current_user(
-    token: str = Depends(oauth2_scheme),  # Токен из заголовка Authorization
-    auth_service: AuthService = Depends(
-        get_auth_service),  # Сервис аутентификации
+    token: str = Depends(oauth2_scheme),
+    auth_service: AuthService = Depends(get_auth_service)
 ) -> User:
     """
     Получение текущего аутентифицированного пользователя из Bearer токена.
@@ -49,7 +40,7 @@ async def get_current_user(
 
 
 async def require_admin(
-    current_user: User = Depends(get_current_user),  # Текущий пользователь
+    current_user: User = Depends(get_current_user),
 ) -> User:
     """
     Проверка роли ADMIN — выбрасывает 403 если не админ.
@@ -71,10 +62,6 @@ async def require_admin(
     return current_user
 
 
-# Annotated алиасы для чистых сигнатур роутов
-# Использование: current_user: CurrentUser в параметрах endpoint
 CurrentUser = Annotated[User, Depends(
     get_current_user)]  # Текущий пользователь
-# Использование: admin_user: AdminUser в параметрах endpoint (требует ADMIN роль)
-# Пользователь с ролью ADMIN
 AdminUser = Annotated[User, Depends(require_admin)]

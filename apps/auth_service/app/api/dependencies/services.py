@@ -4,23 +4,15 @@
 Централизованное создание сервисов и репозиториев для dependency injection.
 """
 
-# Импорты для аннотаций типов
 from typing import Annotated
-# Импорты FastAPI для зависимостей
 from fastapi import Depends
-# Импорты SQLAlchemy для сессий
 from sqlalchemy.ext.asyncio import AsyncSession
 
-# Импорты функции получения сессии БД
-from backend.src.app.core.database import get_session  # Dependency для сессии
-# Импорты репозиториев
-# Репозиторий пользователей
+from backend.src.app.core.database import get_session
 from backend.src.app.repositories.user import UserRepository
-from backend.src.app.repositories.task import TaskRepository  # Репозиторий задач
-# Импорты сервисов
-from backend.src.app.services.auth.service import AuthService  # Сервис аутентификации
-from backend.src.app.services.tasks.service import TaskService  # Сервис задач
-# Сервис уведомлений
+from backend.src.app.repositories.task import TaskRepository
+from backend.src.app.services.auth.service import AuthService
+from backend.src.app.services.tasks.service import TaskService
 from backend.src.app.services.notifications.service import NotificationService
 
 
@@ -36,7 +28,6 @@ def get_user_repository(session: AsyncSession = Depends(get_session)) -> UserRep
     Returns:
         UserRepository: Экземпляр репозитория пользователей.
     """
-    # Создаём репозиторий с сессией БД
     return UserRepository(session)
 
 
@@ -50,7 +41,6 @@ def get_task_repository(session: AsyncSession = Depends(get_session)) -> TaskRep
     Returns:
         TaskRepository: Экземпляр репозитория задач.
     """
-    # Создаём репозиторий с сессией БД
     return TaskRepository(session)
 
 
@@ -63,13 +53,13 @@ def get_notification_service() -> NotificationService:
     Returns:
         NotificationService: Экземпляр сервиса уведомлений.
     """
-    # Создаём сервис уведомлений (без зависимостей)
+
     return NotificationService()
 
 
 def get_auth_service(
     user_repo: UserRepository = Depends(
-        get_user_repository),  # Внедряем репозиторий
+        get_user_repository),
 ) -> AuthService:
     """
     Фабрика AuthService для dependency injection.
@@ -80,17 +70,16 @@ def get_auth_service(
     Returns:
         AuthService: Экземпляр сервиса аутентификации.
     """
-    # Создаём сервис аутентификации с репозиторием
+
     return AuthService(user_repo)
 
 
 def get_task_service(
     task_repo: TaskRepository = Depends(
-        get_task_repository),  # Внедряем репозиторий задач
-    # Внедряем репозиторий пользователей
+        get_task_repository),
     user_repo: UserRepository = Depends(get_user_repository),
     notifications: NotificationService = Depends(
-        get_notification_service),  # Внедряем сервис уведомлений
+        get_notification_service),
 ) -> TaskService:
     """
     Фабрика TaskService для dependency injection.

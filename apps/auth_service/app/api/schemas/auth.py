@@ -1,6 +1,9 @@
-"""Authentication schemas."""
+""" Внутренние DTO для аутентификации (сервисный слой) """
+
+
 
 from pydantic import ConfigDict, EmailStr, Field
+
 from backend.src.app.schemas.base import BaseSchema
 
 
@@ -9,6 +12,8 @@ class LoginRequest(BaseSchema):
 
     email: EmailStr
     password: str = Field(min_length=8, max_length=72)
+
+
 
 
 class TokenPair(BaseSchema):
