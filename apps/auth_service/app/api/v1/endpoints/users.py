@@ -11,10 +11,17 @@ from backend.src.app.exceptions.http import NotFoundError
 from backend.src.app.schemas.user import UserOut, UserUpdate
 from backend.src.app.services.auth.service import AuthService
 
-router = APIRouter(prefix="/users", tags=["Users"])
+router = APIRouter(
+    prefix="/users", 
+    tags=["Users"]
+    )
 
 
-@router.get("/", response_model=list[UserOut], summary="List all users (admin only)")
+@router.get(
+    "/", 
+    response_model=list[UserOut], 
+    summary="List all users (admin only)"
+    )
 async def list_users(
     _: AdminUser,
     repo: UserRepository = Depends(get_user_repository),
@@ -23,7 +30,11 @@ async def list_users(
     return [UserOut.model_validate(u) for u in users]
 
 
-@router.get("/{user_id}", response_model=UserOut, summary="Get user by ID")
+@router.get(
+    "/{user_id}", 
+    response_model=UserOut, 
+    summary="Get user by ID"
+    )
 async def get_user(
     user_id: uuid.UUID,
     current_user: CurrentUser,
@@ -35,7 +46,11 @@ async def get_user(
     return UserOut.model_validate(user)
 
 
-@router.patch("/{user_id}", response_model=UserOut, summary="Update user profile")
+@router.patch(
+    "/{user_id}", 
+    response_model=UserOut, 
+    summary="Update user profile"
+    )
 async def update_user(
     user_id: uuid.UUID,
     data: UserUpdate,
@@ -56,7 +71,11 @@ async def update_user(
     return UserOut.model_validate(user)
 
 
-@router.delete("/{user_id}", status_code=204, summary="Deactivate user (admin only)")
+@router.delete(
+    "/{user_id}", 
+    status_code=204, 
+    summary="Deactivate user (admin only)"
+    )
 async def deactivate_user(
     user_id: uuid.UUID,
     _: AdminUser,

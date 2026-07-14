@@ -8,10 +8,16 @@ from backend.src.app.schemas.base import BaseSchema
 
 
 class LoginRequest(BaseSchema):
-    model_config = ConfigDict(str_to_lower=True, str_strip_whitespace=True)
+    model_config = ConfigDict(
+        str_to_lower=True, 
+        str_strip_whitespace=True
+        )
 
     email: EmailStr
-    password: str = Field(min_length=8, max_length=72)
+    password: str = Field(
+        min_length=8,
+         max_length=72
+         )
 
 
 

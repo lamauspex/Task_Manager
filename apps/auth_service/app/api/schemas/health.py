@@ -1,4 +1,4 @@
-""" """
+""" Схема ответа для health check """
 
 
 from pydantic import BaseModel
@@ -6,8 +6,6 @@ from pydantic import BaseModel
 
 class HealthResponse(BaseModel):
     """
-    Схема ответа для health check.
-
     Attributes:
         status: Статус сервиса (ok/error).
         version: Версия приложения.
