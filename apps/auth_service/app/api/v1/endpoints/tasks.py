@@ -11,7 +11,11 @@ from backend.src.app.services.tasks.service import TaskService
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
 
-@router.get("/", response_model=list[TaskOut], summary="List all tasks")
+@router.get(
+    "/", 
+    response_model=list[TaskOut], 
+    summary="List all tasks"
+    )
 async def list_tasks(
     _: CurrentUser,
     service: TaskService = Depends(get_task_service),
@@ -19,7 +23,12 @@ async def list_tasks(
     return await service.get_all()
 
 
-@router.post("/", response_model=TaskOut, status_code=201, summary="Create a new task")
+@router.post(
+    "/", 
+    response_model=TaskOut, 
+    status_code=201, 
+    summary="Create a new task"
+    )
 async def create_task(
     data: TaskCreate,
     current_user: CurrentUser,
@@ -28,7 +37,11 @@ async def create_task(
     return await service.create(data, current_user)
 
 
-@router.get("/{task_id}", response_model=TaskOut, summary="Get task by ID")
+@router.get(
+    "/{task_id}", 
+    response_model=TaskOut, 
+    summary="Get task by ID"
+    )
 async def get_task(
     task_id: uuid.UUID,
     _: CurrentUser,
@@ -37,7 +50,11 @@ async def get_task(
     return await service.get_by_id(task_id)
 
 
-@router.patch("/{task_id}", response_model=TaskOut, summary="Update task fields")
+@router.patch(
+    "/{task_id}", 
+    response_model=TaskOut, 
+    summary="Update task fields"
+    )
 async def update_task(
     task_id: uuid.UUID,
     data: TaskUpdate,
@@ -47,7 +64,11 @@ async def update_task(
     return await service.update(task_id, data, current_user)
 
 
-@router.delete("/{task_id}", status_code=204, summary="Delete a task")
+@router.delete(
+    "/{task_id}", 
+    status_code=204, 
+    summary="Delete a task"
+    )
 async def delete_task(
     task_id: uuid.UUID,
     current_user: CurrentUser,
@@ -56,7 +77,11 @@ async def delete_task(
     await service.delete(task_id, current_user)
 
 
-@router.post("/{task_id}/assign", response_model=TaskOut, summary="Assign task to a user")
+@router.post(
+    "/{task_id}/assign", 
+    response_model=TaskOut, 
+    summary="Assign task to a user"
+    )
 async def assign_task(
     task_id: uuid.UUID,
     assignee_id: uuid.UUID,
@@ -66,7 +91,11 @@ async def assign_task(
     return await service.assign(task_id, assignee_id, current_user)
 
 
-@router.post("/{task_id}/complete", response_model=TaskOut, summary="Mark task as completed")
+@router.post(
+    "/{task_id}/complete", 
+    response_model=TaskOut, 
+    summary="Mark task as completed"
+    )
 async def complete_task(
     task_id: uuid.UUID,
     current_user: CurrentUser,
